@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState ,useRef, useEffect } from 'react'
 
 import './App.css'
 
@@ -18,17 +18,36 @@ const remaningScroll = scrollHeight - (ScrollTop  + clientHeight)
 console.log(remaningScroll)
 if(remaningScroll<100)
 {
-  hitmore()
+  // hitmore()
 }
 }
+useEffect(()=>{
+const observer = new IntersectionObserver(function(entries){
+  entries.forEach((entry)=>{
+    if(entry.isIntersecting)
+    {
+      entry.target.style.backgroundColor = "red";
 
+    }
+    else{
+      entry.target.style.backgroundColor = "blue";
+    }
+  })
+})
+arraylist.current.forEach((el,index)=>{
+  observer.observe(el)
+})
+
+},[])
+
+const arraylist = useRef([])
 
   return (
     <>
       <div  onScroll={(e)=>handleScroll(e)} className='container'>
       {
         items.map((val , index)=> {
-          return (<div className='item' key={index}>{index+1}</div>)
+          return (<div className='item' ref={(e=> arraylist.current[index]=e)} key={index}>{index+1}</div>)
         })
       }
       </div>
