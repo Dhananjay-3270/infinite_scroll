@@ -16,9 +16,9 @@ function handleScroll(e){
   const scrollHeight = e.target.scrollHeight
 const remaningScroll = scrollHeight - (ScrollTop  + clientHeight)
 console.log(remaningScroll)
-if(remaningScroll<100)
+if(remaningScroll<200)
 {
-  // hitmore()
+  hitmore()
 }
 }
 useEffect(()=>{
